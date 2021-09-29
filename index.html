@@ -7,23 +7,25 @@
 		<title>Book Search</title>
 	</head>
 	<body>
-		<div id="app">
-			<form action="#" class="p-2">
+		<div id="app" x-data="app">
+			<form class="p-2 w-11/12" @submit.prevent="search">
 				<input
 					type="text"
+					x-model="query"
 					placeholder="Enter book title"
 					class="
+						h-11
 						border-2 border-indigo-500
 						py-2
 						px-4
 						font-semibold
 						rounded-lg
-						box-content
 					"
 				/>
 				<button
 					type="submit"
 					class="
+						h-11
 						py-2
 						px-4
 						font-semibold
@@ -36,6 +38,30 @@
 					Search
 				</button>
 			</form>
+
+			<hr />
+
+			<!-- List of Results -->
+			<template
+				class="w-11/12 mx-auto border-2"
+				x-for="(result, index) in results"
+				:key="index"
+			>
+				<!-- Result -->
+				<!-- <div
+					class="w-full h-36 mx-auto my-1 border-2"
+					x-text="query"' + result.key.split('/').pop() + '
+				></div> -->
+				<div class="w-full min-h-36 mx-auto my-1 border-2">
+					<img
+						class="block mx-auto my-2 h-32 clear-both"
+						src="https://covers.openlibrary.org/b/olid/OL27274038M-L.jpg"
+						alt="thumbnail"
+					/>
+					<p><strong x-text="result.title"></strong></p>
+					<p x-text="result.author_name[0]"></p>
+				</div>
+			</template>
 		</div>
 		<script type="module" src="/main.js"></script>
 	</body>
