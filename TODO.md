@@ -1,8 +1,0 @@
--   Figure out way to find cover image
--   Use fontless to add custom fonts
--   Use GraphQL or API Customization to reduce payload size
--   Add basic information about project
-    -   Author
-    -   Uses
-    -   Technology
--   Maybe: Author Search

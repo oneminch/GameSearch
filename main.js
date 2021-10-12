@@ -5,7 +5,16 @@ import axios from "axios";
 
 window.Alpine = Alpine;
 
-Alpine.store("results", []);
+const fetchGames = () => {
+	axios
+		.get("https://cors.bridged.cc/https://www.freetogame.com/api/games")
+		.then((response) => {
+			this.allGames = response.data.slice();
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+};
 
 Alpine.store("darkMode", {
 	on: false,
@@ -15,32 +24,21 @@ Alpine.store("darkMode", {
 	},
 });
 
+Alpine.directive("href", (el, { expression }, { evaluate }) => {
+	el.href = `https://openlibrary.org${evaluate(expression)}`;
+});
+
 Alpine.data("app", () => ({
-	query: "recursion blake",
+	query: "fishing",
 	results: [],
+	allGames: [],
 
 	search() {
-		// Make the search here with axios
-		// Use GraphQL to make efficient queries
-		// Push structured results to array
-		// Display them nicely with help from Windi CSS
-		let appData = this;
-
-		axios
-			.get(`http://openlibrary.org/search.json?q=${this.query}`)
-			.then((response) => {
-				// handle success
-
-				this.results = response.data.docs.slice();
-			})
-			.catch((error) => {
-				// handle error
-				console.log(error);
-			})
-			.then(() => {
-				// always executed
-				// for (let key in this.results) alert(key);
-			});
+		// Write search algo here
+		this.allGames;
+	},
+	init() {
+		fetchGames();
 	},
 }));
 

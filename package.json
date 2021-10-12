@@ -1,18 +1,18 @@
 {
-  "name": "book-search",
-  "version": "0.0.0",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview"
-  },
-  "devDependencies": {
-    "vite": "^2.5.4"
-  },
-  "dependencies": {
-    "alpinejs": "^3.4.2",
-    "axios": "^0.21.4",
-    "vite-plugin-windicss": "^1.4.8",
-    "windicss": "^3.1.8"
-  }
+	"name": "free-to-game-search",
+	"version": "0.0.0",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"serve": "vite preview"
+	},
+	"devDependencies": {
+		"vite": "^2.5.4"
+	},
+	"dependencies": {
+		"alpinejs": "^3.4.2",
+		"axios": "^0.21.4",
+		"vite-plugin-windicss": "^1.4.8",
+		"windicss": "^3.1.8"
+	}
 }
