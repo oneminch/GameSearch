@@ -2,24 +2,34 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			href="https://fontlist.vercel.app/css?family=Inter:ital,wght@0,500;0,700;0,900;0,800;0,600;0,400&display=swap"
+			rel="stylesheet"
+		/>
 		<title>FreeToGame Search</title>
 	</head>
 	<body>
 		<div id="app" x-data="app">
-			<form class="p-2 w-11/12" @submit.prevent="search">
+			<h3 class="font-extrabold text-2xl my-4 text-center">
+				Search Free-to-Play Games
+			</h3>
+			<form class="p-2 w-full" @submit.prevent="search">
 				<input
 					type="text"
 					x-model="query"
-					placeholder="Enter book title"
+					placeholder="Enter game info"
 					class="
 						h-11
 						border-2 border-indigo-500
 						py-2
 						px-4
 						font-semibold
-						rounded-lg
+						rounded-md
+						outline-none
+						focus:ring-2
+						ring-indigo-400 ring-opacity-50 ring-offset-0
 					"
 				/>
 				<button
@@ -29,10 +39,13 @@
 						py-2
 						px-4
 						font-semibold
-						rounded-lg
+						rounded-md
 						text-white
 						bg-indigo-500
 						hover:bg-indigo-600
+						outline-none
+						focus:ring-2
+						ring-indigo-400 ring-opacity-50 ring-offset-0
 					"
 				>
 					Search
@@ -42,96 +55,125 @@
 			<hr class="mb-4" />
 
 			<!-- List of Results -->
-			<div
-				class="
-					w-11/12
-					min-w-30rem
-					max-w-40rem
-					mx-auto
-					border-2
-					rounded-lg
-				"
-			>
+			<div class="w-11/12 flex items-start justify-start rounded-lg">
 				<template x-for="(result, index) in results" :key="index">
 					<!-- Result -->
-					<div
+					<a
+						x-href="result.game_url"
+						target="_blank"
+						rel="noopener"
 						class="
+							w-84
+							my-2
+							mx-2
 							min-h-28
 							box-content
-							px-6
-							py-3
-							border-b-2
-							flex
+							border-2
+							rounded-xl
+							overflow-hidden
+							flex flex-col
 							items-start
 							justify-start
+							flex-shrink-0 flex-grow-0
+							outline-none
+							focus:ring-2
+							ring-indigo-400 ring-opacity-50 ring-offset-0
 						"
 					>
 						<img
 							class="
 								block
-								w-20
-								h-28
-								mr-6
-								border-2
-								rounded-md
+								w-full
+								h-44
+								object-cover
+								rounded-t-lg
 								bg-gray-100
 								overflow-hidden
 								flex-shrink-0 flex-grow-0
 							"
-							x-src="result.cover_i"
-							alt="Book Cover"
+							x-src="result.thumbnail"
+							alt="Thumbnail"
 						/>
-						<div class="mr-4">
+						<div
+							class="p-4 flex flex-col items-start justify-start"
+						>
 							<p
-								class="font-bold text-lg text-left"
+								class="font-bold text-lg text-left mb-2"
 								x-text="result.title"
 							></p>
 							<p
-								class="text-md text-left"
-								x-text="result.author_name[0]"
+								class="text-md text-left mb-2"
+								x-text="result.short_description"
 							></p>
+							<div class="mb-2">
+								<span
+									class="
+										float-left
+										py-1
+										px-3
+										mr-1
+										rounded-full
+										text-xs
+										bg-gray-200
+										font-bold
+									"
+									title="result.platform"
+									x-text="result.platform"
+								></span>
+								<span
+									class="
+										float-left
+										py-1
+										px-3
+										mr-1
+										rounded-full
+										text-xs
+										bg-gray-200
+										font-bold
+									"
+									title="result.genre"
+									x-text="result.genre"
+								></span>
+							</div>
+							<table class="w-full mb-1">
+								<tbody>
+									<tr class="border-b-1 border-b-indigo-300">
+										<td
+											class="text-gray-500 text-left py-2"
+										>
+											Developer
+										</td>
+										<td
+											class="text-right font-medium py-2"
+											x-text="result.developer"
+										></td>
+									</tr>
+									<tr class="border-b-1 border-b-indigo-300">
+										<td
+											class="text-gray-500 text-left py-2"
+										>
+											Publisher
+										</td>
+										<td
+											class="text-right font-medium py-2"
+											x-text="result.publisher"
+										></td>
+									</tr>
+									<tr class="border-b-1 border-b-indigo-300">
+										<td
+											class="text-gray-500 text-left py-2"
+										>
+											Release Date
+										</td>
+										<td
+											class="text-right font-medium py-2"
+											x-text="result.release_date"
+										></td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
-						<a
-							x-href="result.key"
-							target="_blank"
-							rel="noopener"
-							class="
-								ml-auto
-								flex
-								w-10
-								h-10
-								flex-shrink-0 flex-grow-0
-								items-center
-								justify-center
-								self-center
-								rounded-full
-								bg-indigo-400
-								hover:bg-indigo-500
-							"
-						>
-							<svg
-								width="24"
-								height="24"
-								class="w-7 h-7 text-white"
-								viewBox="0 0 24 24"
-								fill="currentColor"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path
-									d="M14.8284 12L16.2426 13.4142L19.071 10.5858C20.6331 9.02365 20.6331 6.49099 19.071 4.9289C17.509 3.3668 14.9763 3.3668 13.4142 4.9289L10.5858 7.75732L12 9.17154L14.8284 6.34311C15.6095 5.56206 16.8758 5.56206 17.6568 6.34311C18.4379 7.12416 18.4379 8.39049 17.6568 9.17154L14.8284 12Z"
-									fill="currentColor"
-								/>
-								<path
-									d="M12 14.8285L13.4142 16.2427L10.5858 19.0711C9.02372 20.6332 6.49106 20.6332 4.92896 19.0711C3.36686 17.509 3.36686 14.9764 4.92896 13.4143L7.75739 10.5858L9.1716 12L6.34317 14.8285C5.56212 15.6095 5.56212 16.8758 6.34317 17.6569C7.12422 18.4379 8.39055 18.4379 9.1716 17.6569L12 14.8285Z"
-									fill="currentColor"
-								/>
-								<path
-									d="M14.8285 10.5857C15.219 10.1952 15.219 9.56199 14.8285 9.17147C14.4379 8.78094 13.8048 8.78094 13.4142 9.17147L9.1716 13.4141C8.78107 13.8046 8.78107 14.4378 9.1716 14.8283C9.56212 15.2188 10.1953 15.2188 10.5858 14.8283L14.8285 10.5857Z"
-									fill="currentColor"
-								/>
-							</svg>
-						</a>
-					</div>
+					</a>
 				</template>
 			</div>
 		</div>
