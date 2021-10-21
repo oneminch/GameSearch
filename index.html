@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href="./assets/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link
 			href="https://fontlist.vercel.app/css?family=Inter:ital,wght@0,500;0,700;0,900;0,800;0,600;0,400&display=swap"
@@ -10,21 +10,33 @@
 		/>
 		<title>FreeToGame Search</title>
 	</head>
-	<body>
-		<div id="app" x-data="app">
-			<h3 class="font-extrabold text-2xl my-4 text-center">
-				Search Free-to-Play Games
-			</h3>
-			<form class="p-2 w-full" @submit.prevent="search">
+	<body class="bg-gray-700">
+		<div
+			id="app"
+			class="
+				w-full
+				min-w-md
+				max-w-9xl max-w-9xl
+				mx-auto
+				transition-all
+				duration-200
+			"
+			x-data="app"
+		>
+			<form class="w-full my-10" @submit.prevent="search">
 				<input
 					type="text"
 					x-model="query"
 					placeholder="Enter game info"
 					class="
+						w-80
+						<sm:w-68
 						h-11
-						border-2 border-indigo-500
 						py-2
 						px-4
+						mr-1
+						text-white
+						bg-gray-600
 						font-semibold
 						rounded-md
 						outline-none
@@ -35,6 +47,7 @@
 				<button
 					type="submit"
 					class="
+						w-24
 						h-11
 						py-2
 						px-4
@@ -52,26 +65,96 @@
 				</button>
 			</form>
 
-			<hr class="mb-4" />
+			<hr
+				class="
+					w-120
+					<sm:w-68
+					rounded-md
+					border-2
+					mx-auto
+					my-6
+					border-gray-600
+				"
+			/>
 
 			<!-- List of Results -->
-			<div class="w-11/12 flex items-start justify-start rounded-lg">
+			<div class="w-11/12 rounded-lg mx-auto">
+				<!-- Initial page -->
+				<div
+					x-show="initialDesc"
+					class="
+						w-120
+						@sm:w-9/12
+						<sm:w-11/12
+						h-72
+						mt-8
+						py-4
+						box-content
+						flex flex-col
+						items-center
+						justify-center
+						rounded-xl
+						bg-gray-600
+						text-gray-400
+						mx-auto
+					"
+				>
+					<h1 class="text-2xl font-extrabold mb-3">
+						Search Free Games
+					</h1>
+					<p>Find the best free-to-play games!</p>
+					<hr
+						class="
+							w-1/2
+							rounded-md
+							border-1
+							mx-auto
+							my-8
+							border-gray-500
+						"
+					/>
+					<p class="mb-3 font-bold">Powered By</p>
+					<img
+						class="w-16 mb-3"
+						src="./assets/freetogame-logo.png"
+						alt="FreeToGame Logo"
+					/>
+					<a
+						class="
+							px-5
+							py-1
+							rounded-full
+							text-sm
+							font-semibold
+							text-gray-100
+							bg-gray-500
+							outline-none
+							focus:ring-2
+							ring-indigo-400 ring-opacity-50 ring-offset-0
+						"
+						href="https://freetogame.com"
+						>FreeToGame API</a
+					>
+				</div>
+
 				<template x-for="(result, index) in results" :key="index">
 					<!-- Result -->
 					<a
-						x-href="result.game_url"
+						:href="result.game_url"
 						target="_blank"
 						rel="noopener"
 						class="
 							w-84
-							my-2
-							mx-2
+							@sm:w-9/12
+							<sm:w-11/12
+							mb-2
+							mr-2
 							min-h-28
-							box-content
-							border-2
+							border-2 border-gray-600
 							rounded-xl
 							overflow-hidden
-							flex flex-col
+							inline-flex
+							flex-col
 							items-start
 							justify-start
 							flex-shrink-0 flex-grow-0
@@ -91,14 +174,20 @@
 								overflow-hidden
 								flex-shrink-0 flex-grow-0
 							"
-							x-src="result.thumbnail"
-							alt="Thumbnail"
+							:src="result.thumbnail"
+							alt="Game Thumbnail"
 						/>
 						<div
-							class="p-4 flex flex-col items-start justify-start"
+							class="
+								p-4
+								flex flex-col
+								text-white
+								items-start
+								justify-start
+							"
 						>
 							<p
-								class="font-bold text-lg text-left mb-2"
+								class="font-extrabold text-lg text-left mb-2"
 								x-text="result.title"
 							></p>
 							<p
@@ -114,10 +203,11 @@
 										mr-1
 										rounded-full
 										text-xs
-										bg-gray-200
-										font-bold
+										bg-gray-600
+										text-white
+										font-semibold
 									"
-									title="result.platform"
+									:title="result.platform"
 									x-text="result.platform"
 								></span>
 								<span
@@ -128,45 +218,70 @@
 										mr-1
 										rounded-full
 										text-xs
-										bg-gray-200
-										font-bold
+										bg-gray-600
+										text-white
+										font-semibold
 									"
-									title="result.genre"
+									:title="result.genre"
 									x-text="result.genre"
 								></span>
 							</div>
-							<table class="w-full mb-1">
+							<table class="w-full mt-2">
 								<tbody>
 									<tr class="border-b-1 border-b-indigo-300">
 										<td
-											class="text-gray-500 text-left py-2"
+											class="
+												font-medium
+												text-gray-400 text-left
+												py-2
+											"
 										>
 											Developer
 										</td>
 										<td
-											class="text-right font-medium py-2"
+											class="
+												text-right
+												font-semibold
+												py-2
+											"
 											x-text="result.developer"
 										></td>
 									</tr>
 									<tr class="border-b-1 border-b-indigo-300">
 										<td
-											class="text-gray-500 text-left py-2"
+											class="
+												font-medium
+												text-gray-400 text-left
+												py-2
+											"
 										>
 											Publisher
 										</td>
 										<td
-											class="text-right font-medium py-2"
+											class="
+												text-right
+												font-semibold
+												py-2
+											"
 											x-text="result.publisher"
 										></td>
 									</tr>
-									<tr class="border-b-1 border-b-indigo-300">
+									<tr>
 										<td
-											class="text-gray-500 text-left py-2"
+											class="
+												font-medium
+												text-gray-400 text-left
+												py-2
+											"
 										>
 											Release Date
 										</td>
 										<td
-											class="text-right font-medium py-2"
+											class="
+												text-right
+												font-semibold
+												py-2
+											"
 											x-text="result.release_date"
 										></td>
 									</tr>

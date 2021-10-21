@@ -23,42 +23,11 @@ const createSearchQuery = (query) => {
 	return queryList;
 };
 
-Alpine.store("darkMode", {
-	on: false,
-
-	toggle() {
-		this.on = !this.on;
-	},
-});
-
-Alpine.directive("src", (el, { expression }, { evaluate }) => {
-	el.src = evaluate(expression);
-});
-
-Alpine.directive("href", (el, { expression }, { evaluate }) => {
-	el.href = evaluate(expression);
-});
-
 Alpine.data("app", () => ({
-	query: "daunt",
+	query: "",
 	results: [],
 	allGames: [],
-	// allGames: [
-	// 	{
-	// 		id: 1,
-	// 		title: "Dauntless",
-	// 		thumbnail: "https://www.freetogame.com/g/1/thumbnail.jpg",
-	// 		short_description:
-	// 			"A free-to-play, co-op action RPG with gameplay similar to Monster Hunter.",
-	// 		game_url: "https://www.freetogame.com/open/dauntless",
-	// 		genre: "MMORPG",
-	// 		platform: "PC (Windows)",
-	// 		publisher: "Phoenix Labs",
-	// 		developer: "Phoenix Labs, Iron Galaxy",
-	// 		release_date: "2019-05-21",
-	// 		freetogame_profile_url: "https://www.freetogame.com/dauntless",
-	// 	},
-	// ],
+	initialDesc: true,
 
 	fetchGames() {
 		const baseURL = "https://www.freetogame.com/api/games";
@@ -77,6 +46,9 @@ Alpine.data("app", () => ({
 		if (!this.query.trim()) {
 			return;
 		}
+
+		this.initialDesc = false;
+
 		const fuse = new Fuse(this.allGames, {
 			threshold: 0.3,
 			keys: ["title", "short_description"],
@@ -92,10 +64,6 @@ Alpine.data("app", () => ({
 
 	init() {
 		this.fetchGames();
-
-		setTimeout(() => {
-			this.search();
-		}, 2000);
 	},
 }));
 
