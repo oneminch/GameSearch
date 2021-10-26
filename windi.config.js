@@ -1,8 +1,3 @@
 export default {
-	theme: {
-		/* ... */
-	},
-	shortcuts: {
-		btn: "",
-	},
+	theme: {},
 };
