@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/game-search/assets/favicon.d7a3a193.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			href="https://fontlist.vercel.app/css?family=Inter:ital,wght@0,500;0,700;0,900;0,800;0,600;0,400&display=swap"
+			rel="stylesheet"
+		/>
+		<title>FreeToGame Search</title>
+	  <script type="module" crossorigin src="/game-search/assets/index.1c61d24a.js"></script>
+    <link rel="modulepreload" href="/game-search/assets/vendor.d286f9ff.js">
+    <link rel="stylesheet" href="/game-search/assets/index.3d331f2d.css">
+  </head>
+	<body class="bg-gray-700">
+		<div
+			id="app"
+			class="w-11/12 max-w-9xl mx-auto pb-8 transition-all duration-200"
+			x-data="app"
+		>
+			<form class="w-full my-10 <sm:px-2" @submit.prevent="search">
+				<input
+					type="text"
+					x-model="query"
+					placeholder="Enter game info"
+					class="
+						w-80
+						<sm:w-full <sm:text-center
+						h-11
+						py-2
+						px-4
+						mr-1
+						text-white
+						bg-gray-600
+						font-semibold
+						rounded-md
+						outline-none
+						focus:ring-2
+						ring-teal-400 ring-opacity-50 ring-offset-0
+					"
+				/>
+				<button
+					type="submit"
+					class="
+						w-22
+						<sm:w-full <sm:mt-2 <sm:text-center
+						h-11
+						p-2
+						font-semibold
+						rounded-md
+						text-white
+						bg-teal-500
+						hover:bg-teal-600
+						focus:outline-none focus:ring-2
+						ring-teal-400 ring-opacity-50 ring-offset-0
+					"
+				>
+					Search
+				</button>
+			</form>
+
+			<hr
+				class="
+					w-120
+					<sm:w-10/12
+					rounded-md
+					border-2
+					mx-auto
+					my-6
+					border-gray-600
+				"
+			/>
+
+			<!-- List of Results -->
+			<div class="w-full rounded-lg mx-auto px-2">
+				<!-- Initial page -->
+				<div
+					x-show="initialDesc"
+					class="
+						w-120
+						@sm:w-9/12
+						<sm:w-full
+						min-h-72
+						mt-8
+						px-4
+						py-6
+						box-border
+						flex flex-col
+						items-center
+						justify-center
+						rounded-xl
+						bg-gray-600
+						text-gray-400
+						mx-auto
+					"
+				>
+					<h1 class="text-2xl font-extrabold mb-3">
+						Search Free Games
+					</h1>
+					<p>Find the best free-to-play games!</p>
+					<hr
+						class="
+							w-1/2
+							rounded-md
+							border-1
+							mx-auto
+							my-4
+							border-gray-500
+						"
+					/>
+					<p class="mb-3 font-bold">Powered By</p>
+					<img
+						class="w-16 mb-3"
+						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAG0AAABmCAYAAADBPx+VAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6ODEzM0FEQkY3NENFMTFFQUEwNTdDNERGM0IyRkZBRTYiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6ODEzM0FEQkU3NENFMTFFQUEwNTdDNERGM0IyRkZBRTYiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDowRTE0N0U0QzIyMkUxMUVBOEYzQUU1QzM0RDQ4M0Q1MCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowRTE0N0U0RDIyMkUxMUVBOEYzQUU1QzM0RDQ4M0Q1MCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pv+w73MAAAxESURBVHja7F17bFZn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"
+						alt="FreeToGame Logo"
+					/>
+					<a
+						class="
+							px-5
+							py-1
+							rounded-full
+							text-sm
+							font-semibold
+							text-gray-100
+							bg-gray-500
+							outline-none
+							focus:ring-2
+							ring-teal-400 ring-opacity-50 ring-offset-0
+						"
+						href="https://www.freetogame.com/api-doc"
+						>FreeToGame API</a
+					>
+				</div>
+
+				<template x-for="(result, index) in results" :key="index">
+					<!-- Result -->
+					<a
+						:href="result.game_url"
+						target="_blank"
+						rel="noopener"
+						class="
+							w-84
+							@sm:w-9/12
+							<sm:w-full
+							mb-2
+							mr-2
+							min-h-28
+							border-2 border-gray-600
+							rounded-xl
+							overflow-hidden
+							inline-flex
+							flex-col
+							items-start
+							justify-start
+							flex-shrink-0 flex-grow-0
+							outline-none
+							focus:ring-2
+							ring-teal-400 ring-opacity-50 ring-offset-0
+						"
+					>
+						<img
+							class="
+								block
+								w-full
+								h-44
+								object-cover
+								rounded-t-lg
+								bg-gray-100
+								overflow-hidden
+								flex-shrink-0 flex-grow-0
+							"
+							:src="result.thumbnail"
+							alt="Game Thumbnail"
+						/>
+						<div
+							class="
+								p-4
+								flex flex-col
+								text-white
+								items-start
+								justify-start
+							"
+						>
+							<p
+								class="font-extrabold text-lg text-left mb-2"
+								x-text="result.title"
+							></p>
+							<p
+								class="text-md text-left mb-2"
+								x-text="result.short_description"
+							></p>
+							<div class="mb-2">
+								<span
+									class="
+										float-left
+										py-1
+										px-3
+										mr-1
+										rounded-full
+										text-xs
+										bg-gray-600
+										text-white
+										font-semibold
+									"
+									:title="result.platform"
+									x-text="result.platform"
+								></span>
+								<span
+									class="
+										float-left
+										py-1
+										px-3
+										mr-1
+										rounded-full
+										text-xs
+										bg-gray-600
+										text-white
+										font-semibold
+									"
+									:title="result.genre"
+									x-text="result.genre"
+								></span>
+							</div>
+							<table class="w-full mt-2">
+								<tbody>
+									<tr class="border-b-1 border-b-teal-300">
+										<td
+											class="
+												font-medium
+												text-gray-400 text-left
+												py-2
+											"
+										>
+											Developer
+										</td>
+										<td
+											class="
+												text-right
+												font-semibold
+												py-2
+											"
+											x-text="result.developer"
+										></td>
+									</tr>
+									<tr class="border-b-1 border-b-teal-300">
+										<td
+											class="
+												font-medium
+												text-gray-400 text-left
+												py-2
+											"
+										>
+											Publisher
+										</td>
+										<td
+											class="
+												text-right
+												font-semibold
+												py-2
+											"
+											x-text="result.publisher"
+										></td>
+									</tr>
+									<tr>
+										<td
+											class="
+												font-medium
+												text-gray-400 text-left
+												py-2
+											"
+										>
+											Release Date
+										</td>
+										<td
+											class="
+												text-right
+												font-semibold
+												py-2
+											"
+											x-text="result.release_date"
+										></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</a>
+				</template>
+			</div>
+		</div>
+		
+	</body>
+</html>
