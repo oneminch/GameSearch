@@ -1,5 +1,7 @@
 import WindiCSS from "vite-plugin-windicss";
+import { defineConfig } from "vite";
 
-export default {
+export default defineConfig({
 	plugins: [WindiCSS()],
-};
+	base: "/game-search/"
+});
