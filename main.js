@@ -1,4 +1,4 @@
-import "./style.css";
+import "/style.css";
 import "virtual:windi.css";
 import Fuse from "fuse.js";
 import Alpine from "alpinejs";
